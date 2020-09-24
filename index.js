@@ -41,8 +41,13 @@ function getFilmCount(character) {
  * If length is 0. Return 'none'
  */
 function getSecondStarshipName(character) {
-  return character.starships[2];
+  if(character.starships.length >= 1){
+    return character.starships[1].name;
+  }else{
+    return 'none'
+  }
 }
+
 /**
  * ### Challenge `getSummary`
  * MVP Challenge 🤓
@@ -67,11 +72,10 @@ function getSummary(character) {
  */
 function getVehiclesCostInCreditsSumTotal(character) {
   // TODO: Add yur code here.
-
-  const totCred = character.reduce(function (acc, item) {
-    return acc + Number(item.cost_in_credits);
-  }, 0);
-  return totCred;
+const totCred = character.vehicles.reduce(function(accumulator, item){
+  return accumulator + item.cost_in_credits 
+}, 0)
+return totCred;
 }
 
 /**
@@ -86,7 +90,13 @@ function getVehiclesCostInCreditsSumTotal(character) {
  */
 function getStarshipPassengerAndCrewSumTotal(character) {
   // TODO: Add your code here.
-
+let pass = character.starships.reduce(function(accum, item){
+  return accum + item.passengers;
+},0)
+let crews = character.starships.reduce(function(accum, item){
+  return accum + item.crew;
+},0)
+return pass + crews
 }
 
 /**
@@ -104,6 +114,11 @@ function getStarshipPassengerAndCrewSumTotal(character) {
  */
 function getNthFilm(character, filmNumber) {
   // TODO: Add your code here.
+  if(filmNumber <= 3){
+    return character.films[filmNumber-1];
+  }else{
+    return "Scott Pilgrim"
+  }
 }
 
 /**
@@ -118,6 +133,16 @@ function getNthFilm(character, filmNumber) {
  */
 function getCargoCapacityTotal(character) {
   // TODO: Add your code here.
+  if(character.vehicles.cargo_capacity === 'null'){
+    return 0;
+  }
+  let vehicle = character.vehicles.reduce(function(accum, item){
+    return accum + Number(item.cargo_capacity)
+  },0)
+  let strshp = character.starships.reduce(function(accum, item){
+    return accum + Number(item.cargo_capacity)
+  },0)
+  return vehicle + strshp
 }
 
 /**
@@ -134,6 +159,7 @@ function getCargoCapacityTotal(character) {
 function getFastestStarshipName(character) {
   // TODO: Add your code here.
 }
+
 
 /**
  * ### Challenge `getLargestCargoStarshipModelName`
